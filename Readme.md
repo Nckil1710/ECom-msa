@@ -7,15 +7,77 @@ Microservices that can be designed as part of a large e-commerce application:
 
 ## Product Catalog Service
 
-Service manages the product information. Reponsibilities:
-- Product CRUD operations
-- Categories and Tags
+### Overview
+
+Responsible for managing product catalog data, which is used by customers and other services.
+
+Reponsibilities:
+- Manage Product Catalog
+- Manage Product Catalog Categories
 - Pricing Information
+- Manage Product life cycle (ACTIVE/DISCONTINUED)
 - Search Filters
+
+### Domain Model
+ 
+**Product**: Entity representing a product
+```code
+Product
+--------------
+id (UUID)
+sku (string, unique)
+name (string) 
+description (string)
+price (decimal)
+status (ProductStatus)
+category (UUID)
+brand (string)
+createdAt (instant)
+updatedAt (instant)
+```
+
+**Product Status**: Enum
+```code
+ACTIVE
+INACTIVE
+DISCONTINUED
+```
+
+**Category**: Entity representing a product category. This supports hierarchial structure
+```code
+id (UUID)
+name (string)
+parentCategory (UUID)
+createdAt (instant)
+updatedAt (instant)
+```
+
+### Repository
+
+**ProductRepository**
+```code
+save
+findById
+findBySku
+findByProductStatus
+findByCategory
+searchNameContainsString
+existsBySku
+```
+
+**CategoryRepository**
+```code
+save
+findById
+findByParentCategory
+findByName
+
+```
+
 
 ## Inventory Service
 
-Servcie that manages the stock level of each product. Responsibilities:
+Service that manages the stock level of each product. Responsibilities:
 - Manage stock avaialbility
 - Reserve and Release stock
 - Stock updates after purchase
