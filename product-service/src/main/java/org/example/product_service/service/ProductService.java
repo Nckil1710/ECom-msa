@@ -21,4 +21,6 @@ public interface ProductService {
     Page<Product> listActiveProducts(Pageable page);
 
     void deactivateProduct(UUID id);
+
+    Product sa();
 }
