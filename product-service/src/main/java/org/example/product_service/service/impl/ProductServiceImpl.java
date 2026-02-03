@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public Product createProduct(Product product) {
-        if (repository.existsbySku(product.getSku())) {
+        if (repository.existsBySku(product.getSku())) {
             throw new IllegalArgumentException("SKU already exists.");
         }
         if (product.getPrice().signum() < 0) {

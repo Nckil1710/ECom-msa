@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "categories")
+@NamedQuery(name = "Category.findRootCategories", query = "SELECT c FROM Category c WHERE c.parent IS NULL")
 public class Category extends BaseEntity {
 
     @Column(nullable = false, length = 32)

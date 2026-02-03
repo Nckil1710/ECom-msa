@@ -8,6 +8,8 @@ import org.example.product_service.service.CategoryService;
 import org.example.product_service.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/categories")
@@ -28,6 +30,14 @@ public class CategoryController {
                 category.getId(), category.getName(),
                 parent != null ? parent.getId() : null
         );
+    }
+
+    @GetMapping("/root")
+    public List<CategoryResponse> getRootCategories() {
+        var roots = categoryService.getRootCategories();
+        return roots.stream()
+                .map(c -> new CategoryResponse(c.getId(), c.getName(), c.getParent().getId()))
+                .toList();
     }
 
 }

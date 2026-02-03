@@ -13,7 +13,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     Optional<Product> findBySku(String sku);
 
-    boolean existsbySku(String sku);
+    boolean existsBySku(String sku);
 
     Page<Product> findByStatus(ProductStatus status, Pageable page);
 
