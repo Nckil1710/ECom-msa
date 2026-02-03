@@ -15,11 +15,11 @@ import java.util.List;
 @NamedQuery(name = "Category.findRootCategories", query = "SELECT c FROM Category c WHERE c.parent IS NULL")
 public class Category extends BaseEntity {
 
-    @Column(nullable = false, length = 32)
+    @Column(nullable = true, length = 32)
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
+    @JoinColumn(name = "parent_id",nullable = true)
     private Category parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)

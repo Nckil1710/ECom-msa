@@ -20,9 +20,16 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category createCategory(Category category) {
-        if (category.getParent() != null &&
-                category.getParent().getId() == null) {
-            throw new IllegalArgumentException("Parent category of exist");
+        if (category.getParent() != null) {
+            // If parent is not null, check if parent ID is valid
+            if (category.getParent().getId() == null) {
+                throw new IllegalArgumentException("Parent category must have a valid ID.");
+            }
+
+            // Check if parent category exists in the database
+            if (!repository.existsById(category.getParent().getId())) {
+                throw new IllegalArgumentException("Parent category does not exist.");
+            }
         }
         return repository.save(category);
     }

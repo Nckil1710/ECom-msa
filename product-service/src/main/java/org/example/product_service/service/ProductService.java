@@ -22,5 +22,4 @@ public interface ProductService {
 
     void deactivateProduct(UUID id);
 
-    Product sa();
 }
